@@ -12,8 +12,16 @@ public class Tienda implements Serializable {
     private Producto[] productos=new Producto[100];
     public int nInventory=0;
     private Proveedor[] proveedors=new Proveedor[10];
+
+    private Pedido[] pedidos=new Pedido[100];
+    public int nPedidos=0;
     public int nProovedores=0;
 
+
+    public Tienda(String nombre, String rfc) {
+        this.nombre = nombre;
+        this.rfc = rfc;
+    }
 
     public int getnInventory(){
         return nInventory;
@@ -25,10 +33,7 @@ public class Tienda implements Serializable {
     public Producto[] getProductos() {
         return productos;
     }
-    public Tienda(String nombre, String rfc) {
-        this.nombre = nombre;
-        this.rfc = rfc;
-    }
+
 
     public void setnClientes(int nClientes) {
         this.nClientes = nClientes;
@@ -60,6 +65,10 @@ public class Tienda implements Serializable {
 
     public Cliente[] getClientes(){
         return clientes;
+    }
+
+    public Pedido[] getPedidos() {
+        return pedidos;
     }
 
     @Override

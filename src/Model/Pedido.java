@@ -1,25 +1,27 @@
 package Model;
 import java.io.Serializable;
-import java.util.Arrays;
 
 
 public class Pedido implements Serializable {
-    private Producto[] prodPedidos=new Producto[30];
+    private Producto prodPedido;
     private String fechaPedido;
+
+    private int cantidadProd;
     private Proveedor provAsignado;
 
-    public Pedido(Producto[] prodPedidos, String fechaPedido, Proveedor provAsignado) {
-        this.prodPedidos = prodPedidos;
+    public Pedido(Producto prodPedidos, String fechaPedido, Proveedor provAsignaod, int cantidadProd) {
+        this.prodPedido = prodPedidos;
         this.fechaPedido = fechaPedido;
-        this.provAsignado = provAsignado;
+        this.provAsignado = provAsignaod;
+        this.cantidadProd=cantidadProd;
     }
 
-    public Producto[] getProdPedidos() {
-        return prodPedidos;
+    public Producto getProdPedido() {
+        return prodPedido;
     }
 
-    public void setProdPedidos(Producto[] prodPedidos) {
-        this.prodPedidos = prodPedidos;
+    public void setProdPedido(Producto prodPedidos) {
+        this.prodPedido = prodPedidos;
     }
 
     public String getFechaPedido() {
@@ -41,7 +43,8 @@ public class Pedido implements Serializable {
     @Override
     public String toString() {
         return "Pedido{" +
-                "prodPedidos=" + Arrays.toString(prodPedidos) +
+                "prodPedido=" +  prodPedido+
+                "cantidadProd="+cantidadProd+
                 ", fechaPedido='" + fechaPedido + '\'' +
                 ", provAsignado=" + provAsignado +
                 '}';

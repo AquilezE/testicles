@@ -14,12 +14,20 @@ public class TiendaC {
     }
 
     // method to add a new product to the store's inventory
-    public boolean addProduct(Producto producto) {
+    public boolean addProduct(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias, String numSerie,String nombre) {
         // check if there is space in the inventory
         if (tienda.getnInventory() >= 100) {
 
             return false;
         }
+        Proveedor temp = null;
+        for (Proveedor p: tienda.getProveedores()) {
+            if(p.getNombre() != null && p.getNombre().equals(nombre)){
+                temp = p;
+                break;
+            }
+        }
+        Producto producto = new ProductoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias,numSerie,temp);
 
         tienda.getProductos()[tienda.getnInventory()] = producto;
         tienda.setnInventory(tienda.getnInventory() + 1);

@@ -3,8 +3,8 @@ public class ProductoElectronico extends Producto {
 
     private String numSerie;
 
-    public ProductoElectronico(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias, String numSerie){
-        super( codigo,  precioVenta,  descuento,  descripcion, numExistencias);
+    public ProductoElectronico(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias, String numSerie,Proveedor proveedor){
+        super( codigo,  precioVenta,  descuento,  descripcion, numExistencias,proveedor);
         this.numSerie=numSerie;
     }
 
@@ -25,6 +25,7 @@ public class ProductoElectronico extends Producto {
                 ", descuento=" + descuento +
                 ", descripcion='" + descripcion + '\'' +
                 ", numExistencias=" + numExistencias +
+                ", proveedor="+proveedor+
                 '}';
     }
 }

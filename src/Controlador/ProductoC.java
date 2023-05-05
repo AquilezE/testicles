@@ -2,6 +2,7 @@ package Controlador;
 
 import Model.Producto;
 import Model.ProductoElectronico;
+import Model.Proveedor;
 import Model.Tienda;
 
 import java.io.FileOutputStream;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class ProductoC {
-    public static boolean modificarProducto(Tienda tienda, String codigo, float nuevoPrecioVenta, float nuevoDescuento, String nuevaDescripcion, int nuevasExistencias) {
+    public static boolean modificarProducto(Tienda tienda, String codigo, float nuevoPrecioVenta, float nuevoDescuento, String nuevaDescripcion, int nuevasExistencias, String nameProv) {
         Producto[] productos = tienda.getProductos();
         for (int i = 0; i < productos.length; i++) {
             if (productos[i] != null && productos[i].getCodigo().equals(codigo)) {
@@ -17,6 +18,12 @@ public class ProductoC {
                 productos[i].setDescuento(nuevoDescuento);
                 productos[i].setDescripcion(nuevaDescripcion);
                 productos[i].setNumExistencias(nuevasExistencias);
+                for (Proveedor p: tienda.getProveedores()) {
+                        if(p.getNombre()!=null&&p.getNombre().equals(nameProv)){
+                            productos[i].setProveedor(p);
+                        }
+                }
+
                 // Serialize the updated Tienda object after modifying the Producto
                 try {
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
@@ -41,6 +48,7 @@ public class ProductoC {
                 productos[i].setDescripcion(null);
                 productos[i].setNumExistencias(0);
                 productos[i].setCodigo(null);
+                productos[i].setProveedor(null);
                 ProductoElectronico temp=(ProductoElectronico) productos[i];
                 temp.setNumSerie(null);
 

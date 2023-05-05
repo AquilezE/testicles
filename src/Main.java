@@ -1,12 +1,8 @@
-import Controlador.ProductoC;
-import Controlador.ProvC;
-import Controlador.TiendaC;
+import Controlador.*;
 import Model.*;
 import Vista.View;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,24 +11,41 @@ public class Main {
 
         //Deserializes tienda if it exists
         Tienda tienda;
+        File file = new File("tienda.ser");
+
         try {
-            FileInputStream fis = new FileInputStream("tienda.ser");
+            FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
             tienda = (Tienda) ois.readObject();
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            //If not found, creates it
+            // If the file does not exist, create a new Tienda object
             tienda = new Tienda("Abarrotes Mari", "ABC123");
+
+            // Only serialize the new Tienda object if the file does not exist
+            if (!file.exists()) {
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(file);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(tienda);
+                    out.close();
+                    fileOut.close();
+                    System.out.println("Serialized data is saved in tienda.ser");
+                } catch (IOException ex) {
+                    //e.printStackTrace();
+                }
+            }
         }
 
         TiendaC controller = new TiendaC(tienda);
         ProvC controllerP = new ProvC(tienda);
+        ClienteC controllerC= new ClienteC(tienda);
+        PedidoC controllerPed= new PedidoC(tienda);
         View view = new View();
 
-        int opcion = 420;
-        while (opcion != 0) {
+        int opcionsota = 420;
+        while (opcionsota != 0) {
             try {
                 FileInputStream fis = new FileInputStream("tienda.ser");
                 ObjectInputStream ois = new ObjectInputStream(fis);
@@ -52,18 +65,18 @@ public class Main {
             System.out.println("\t7.- CONSULTA LIBRE");
             System.out.println("\t0.- Salir");
 
-            opcion = Integer.parseInt(view.getInput(">"));
+            opcionsota = Integer.parseInt(view.getInput(">"));
 
-            switch (opcion) {
+            switch (opcionsota) {
                 case (1):
-
+        //PRODUCTO_________________PRODUCTO_____________________PRODUCTO
                     view.displayMessage("\t1.- Agregar producto");
                     view.displayMessage("\t2.- Modificar producto");
                     view.displayMessage("\t3.- Eliminar producto");
                     view.displayMessage("\t4.- Consultar todos los productos");
                     view.displayMessage("\t5.- Consultar algún producto en específico");
                     view.displayMessage("\t6.- Regresar");
-                    opcion = Integer.parseInt(view.getInput(">"));
+                    int opcion = Integer.parseInt(view.getInput(">"));
 
                     switch (opcion) {
                         case 1:
@@ -73,10 +86,9 @@ public class Main {
                             String descripcion = view.getInput("Enter product description:");
                             int numExistencias = Integer.parseInt(view.getInput("Enter number of product units:"));
                             String numSerie = view.getInput("Enter product serial number:");
+                            String nombre = view.getInput("Enter name of the provider of product");
 
-
-                            Producto producto = new ProductoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie);
-                            boolean addedSuccessfully = controller.addProduct(producto);
+                            boolean addedSuccessfully = controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre);
 
                             if (addedSuccessfully) {
                                 view.displayMessage("Product added successfully");
@@ -90,7 +102,8 @@ public class Main {
                             descuento = Float.parseFloat(view.getInput("Enter new product discount:"));
                             descripcion = view.getInput("Enter new product description:");
                             numExistencias = Integer.parseInt(view.getInput("Enter new number of product units:"));
-                            if (ProductoC.modificarProducto(tienda, codigo, precioVenta, descuento, descripcion, numExistencias)) {
+                            String provedorName=view.getInput("Enter the name of the provider");
+                            if (ProductoC.modificarProducto(tienda, codigo, precioVenta, descuento, descripcion, numExistencias,provedorName)) {
                                 view.displayMessage("Producto modificado: " + codigo);
                             } else {
                                 view.displayMessage("Producto no modificado: " + codigo);
@@ -106,7 +119,6 @@ public class Main {
                             break;
                         case 4:
                             TiendaC.quickSort(tienda, 0, tienda.getnInventory() - 1);
-                            tienda.setnInventory(tienda.getnInventory() - 1);
                             for (int i = 0; i < tienda.nInventory; i++) {
                                 view.displayMessage(tienda.getProductos()[i].toString());
                             }
@@ -137,6 +149,7 @@ public class Main {
                             break;
                     }
                     break;
+        //PROVEEDOR______________________________PROVEEDOR__________________________PROVEEDOR
                 case 2:
                     view.displayMessage("\t1.- Agregar proveedor");
                     view.displayMessage("\t2.- Modificar proveedor");
@@ -209,6 +222,8 @@ public class Main {
                         case 6:
                             break;
                     }
+                    break;
+       //CLIENTE______________________________________CLIENTE________________CLIENTE
                 case 3:
                     view.displayMessage("\t1.- Agregar cliente");
                     view.displayMessage("\t2.- Modificar cliente");
@@ -221,20 +236,83 @@ public class Main {
 
                     switch (opcion){
                         case 1:
-
+                            String cnombre= view.getInput("Escribe el nombre del cliente");
+                            String crfc= view.getInput("Escribe el RFC del cliente");
+                            String cdireccion= view.getInput("Escribe la direccion del cliente");
+                            String cemail= view.getInput("Escribe el email del cliente");
+                            if (controllerC.addCliente(cnombre,crfc,cdireccion,cemail)){
+                                view.displayMessage("Cliente "+crfc+" creado");
+                            }else{
+                                view.displayMessage("Cliente "+crfc+" no creado");
+                            }
                             break;
                         case 2:
+                            crfc= view.getInput("Escribe el RFC del cliente que desea modificar");
+                            cnombre= view.getInput("Escribe el nombre nuevo del cliente");
+                            cdireccion= view.getInput("Escribe la direccion nueva del cliente");
+                            cemail= view.getInput("Escribe el email nuevodel cliente");
+                            if (controllerC.modificarCliente(cnombre,crfc,cdireccion,cemail)){
+                                view.displayMessage("Cliente "+crfc+" modificado");
+                            }else{
+                                view.displayMessage("Cliente "+crfc+"no modificado");
+                            }
                             break;
                         case 3:
+                            crfc= view.getInput("Ingrese el RFC del cliente que desea eliminar");
+                            if(ClienteC.eliminarCliente(tienda,crfc)){
+                                view.displayMessage("Cliente "+crfc+" eliminado");
+                            }else {
+                                view.displayMessage("Cliente "+crfc+"no eliminado");
+                            }
                             break;
                         case 4:
+                            ClienteC.quickSort(tienda, 0, tienda.nClientes - 1);
+                            for (int i = 0; i < tienda.nClientes; i++) {
+                                view.displayMessage(tienda.getClientes()[i].toString());
+                            }
                             break;
                         case 5:
+                            view.displayMessage("Busqueda por:\n\t1)Nombre\n\t2)RFC\n\t3)Email\n\t4)Direccion");
+                            int optdisplay;
+                            optdisplay = Integer.parseInt(view.getInput(">"));
+                            switch (optdisplay) {
+                                case 1:
+                                    String nom;
+                                    nom = view.getInput("Escribe el nombre del cliente: ");
+                                    view.displayMessage(controllerC.buscarClienteNombre(tienda, nom).toString());
+                                    break;
+                                case 2:
+                                    String rfc;
+                                    rfc = view.getInput("Escribe el RFC del cliente: ");
+                                    view.displayMessage(controllerC.buscarClienteRFC(tienda, rfc).toString());
+                                    break;
+                                case 3:
+                                    String emeil;
+                                    emeil = view.getInput("Escribe el E-Mail del cliente: ");
+                                    view.displayMessage(controllerC.buscarClienteEmail(tienda, emeil).toString());
+                                    break;
+                                case 4:
+                                    String dir;
+                                    dir = view.getInput("Escribe el E-Mail del cliente: ");
+                                    view.displayMessage(controllerC.buscarClienteDireccion(tienda, dir).toString());
+                                    break;
+                            }
                             break;
-
+                        case 6:
+                            break;
                     }
                     break;
+
+//GENERAR PEDIDO:
                 case 4:
+                    String code= view.getInput("Escribe el codigo del producto");
+                    String date=view.getInput("Escribe la fecha: "); //Si nos ponemos mamones podemos hacerlo automatico
+                    int cantidad=Integer.parseInt(view.getInput("Escriba cuanto producto quiere"));
+                    if(controllerPed.generarPedido(code,date,cantidad)){
+                        view.displayMessage("Pedido Exitoso");
+                    }else {
+                        view.displayMessage("Pedido Fallido");
+                    }
 
                     break;
                 case 5:

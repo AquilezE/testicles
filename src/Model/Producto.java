@@ -8,14 +8,16 @@ public abstract class Producto implements Serializable {
     protected float descuento;
     protected String descripcion;
     protected int numExistencias;
-    private Proveedor[] proveedores = new Proveedor[1];
 
-    public Producto(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias) {
+    protected Proveedor proveedor;
+
+    public Producto(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias,Proveedor proveedor) {
         this.codigo = codigo;
         this.precioVenta = precioVenta;
         this.descuento = descuento;
         this.descripcion = descripcion;
         this.numExistencias = numExistencias;
+        this.proveedor=proveedor;
     }
 
 
@@ -27,6 +29,7 @@ public abstract class Producto implements Serializable {
                 ", descuento=" + descuento +
                 ", descripcion='" + descripcion + '\'' +
                 ", numExistencias=" + numExistencias +
+                ", proveedor="+proveedor+
                 '}';
     }
 
@@ -68,5 +71,13 @@ public abstract class Producto implements Serializable {
 
     public void setNumExistencias(int numExistencias) {
         this.numExistencias = numExistencias;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 }
