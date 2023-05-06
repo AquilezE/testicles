@@ -3,14 +3,18 @@ import java.io.Serializable;
 
 
 public class Factura implements Serializable {
+
     private Cliente cliente;
     private Producto prodVendido;
-    private Tienda[] tiendas = new Tienda[1];
-    private Cliente[] clientes = new Cliente[1];
+
+    private float costo;
+
+
 
     public Factura(Cliente cliente, Producto prodVendido) {
         this.cliente = cliente;
         this.prodVendido = prodVendido;
+        this.costo=prodVendido.getPrecioVenta();
     }
 
     public Cliente getCliente() {
@@ -28,7 +32,13 @@ public class Factura implements Serializable {
     public void setProdVendido(Producto prodVendido) {
         this.prodVendido = prodVendido;
     }
+    public float getCosto() {
+        return costo;
+    }
 
+    public void setCosto(float costo) {
+        this.costo = costo;
+    }
     @Override
     public String toString() {
         return "Factura{" +

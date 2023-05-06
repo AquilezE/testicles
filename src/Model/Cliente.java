@@ -9,6 +9,8 @@ public class Cliente implements Serializable {
     private String email;
     private Factura[] facturas = new Factura[10];
 
+    public int nFacturas=0;
+
     public Cliente(String nombre, String rfc, String direccion, String email) {
         this.nombre = nombre;
         this.rfc = rfc;

@@ -1,7 +1,6 @@
 package Controlador;
 
 import Model.Pedido;
-import Model.Proveedor;
 import Model.Tienda;
 
 import java.io.FileOutputStream;

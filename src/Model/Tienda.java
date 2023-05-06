@@ -9,6 +9,8 @@ public class Tienda implements Serializable {
     private Cliente[] clientes=new Cliente[20];
     public int nClientes=0;
     private Factura[] facturas = new Factura[100];
+
+    public int nFacturas=0;
     private Producto[] productos=new Producto[100];
     public int nInventory=0;
     private Proveedor[] proveedors=new Proveedor[10];

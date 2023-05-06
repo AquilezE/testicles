@@ -37,7 +37,7 @@ public class Main {
                 }
             }
         }
-
+        FacturaC controllerF=new FacturaC(tienda);
         TiendaC controller = new TiendaC(tienda);
         ProvC controllerP = new ProvC(tienda);
         ClienteC controllerC= new ClienteC(tienda);
@@ -313,9 +313,17 @@ public class Main {
                     }else {
                         view.displayMessage("Pedido Fallido");
                     }
-
                     break;
+      //GENERAR FACTURA
                 case 5:
+                    String nomCliente=view.getInput("Escribe el nombre del cliente: ");
+                    String codProd=view.getInput("Escribe el codigo del producto: ");
+
+                    if (controllerF.generarFactura(nomCliente,codProd)){
+                        view.displayMessage("Factura Exitoso");
+                    }else{
+                        view.displayMessage("Factura Fallida");
+                    };
                     break;
             }
         }
