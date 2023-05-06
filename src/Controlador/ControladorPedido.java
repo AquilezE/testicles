@@ -7,11 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class PedidoC {
+public class ControladorPedido {
 
     Tienda tienda;
 
-    public PedidoC(Tienda tienda){
+    public ControladorPedido(Tienda tienda){
         this.tienda=tienda;
     }
     public boolean generarPedido(String code, String fechaPedido, int cantidadProd){

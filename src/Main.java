@@ -1,6 +1,8 @@
 import Controlador.*;
 import Model.*;
+import Vista.PedidoV;
 import Vista.View;
+import Vista.prodV;
 
 import java.io.*;
 
@@ -40,7 +42,7 @@ public class Main {
         TiendaC controller = new TiendaC(tienda);
         ProvC controllerP = new ProvC(tienda);
         ClienteC controllerC= new ClienteC(tienda);
-        PedidoC controllerPed= new PedidoC(tienda);
+        ControladorPedido controladorPedido= new ControladorPedido(tienda);
         View view = new View();
 
         int opcionsota = 200;
@@ -79,6 +81,8 @@ public class Main {
 
                     switch (opcion) {
                         case 1:
+                            prodV.addProd(controller,view);
+                           /*
                             String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
                             String codigo = view.getInput("Escribe el codigo del producto:");
                             float precioVenta = Float.parseFloat(view.getInput("Escribe el precio del producto:"));
@@ -92,32 +96,43 @@ public class Main {
                             } else {
                                 view.displayMessage("Producto no añadido");
                             }
+                            */
                             break;
                         case 2:
-                            codigo = view.getInput("Es:");
-                            precioVenta = Float.parseFloat(view.getInput("Enter new product selling price:"));
-                            descuento = Float.parseFloat(view.getInput("Enter new product discount:"));
-                            descripcion = view.getInput("Enter new product description:");
-                            numExistencias = Integer.parseInt(view.getInput("Enter new number of product units:"));
+                            prodV.modProd(view,tienda);
+                            /*
+                            String codigo = view.getInput("Es:");
+                            Float precioVenta = Float.parseFloat(view.getInput("Enter new product selling price:"));
+                            Float descuento = Float.parseFloat(view.getInput("Enter new product discount:"));
+                            String descripcion = view.getInput("Enter new product description:");
+                            int numExistencias = Integer.parseInt(view.getInput("Enter new number of product units:"));
                             String provedorName=view.getInput("Enter the name of the provider");
                             if (ProductoC.modificarProducto(tienda, codigo, precioVenta, descuento, descripcion, numExistencias,provedorName)) {
                                 view.displayMessage("Producto modificado: " + codigo);
                             } else {
                                 view.displayMessage("Producto no modificado: " + codigo);
                             }
+
+                             */
                             break;
                         case 3:
-                            codigo = view.getInput("Enter product code:");
+                            prodV.delProd(view,tienda);
+                            /*
+                            String codigo = view.getInput("Enter product code:");
                             if (ProductoC.eliminarProducto(tienda, codigo)) {
                                 view.displayMessage("Producto eliminado: " + codigo);
                             } else {
                                 view.displayMessage("Producto no eliminado: " + codigo);
                             }
+
+                             */
                             break;
                         case 4:
-                            TiendaC.quickSort(tienda, 0, tienda.getnInventory() - 1);
-                            for (int i = 0; i < tienda.nInventory; i++) {
-                                view.displayMessage(tienda.getProductos()[i].toString());
+
+                            for (int i = 0; i < 100; i++) {
+                                if (tienda.getProductos()[i]!=null) {
+                                    view.displayMessage(tienda.getProductos()[i].toString());
+                                }
                             }
                             break;
                         case 5:
@@ -302,14 +317,18 @@ public class Main {
 
 //GENERAR PEDIDO:
                 case 4:
+                    PedidoV.generarPedido(controladorPedido,view);
+                    /*
                     String code= view.getInput("Escribe el codigo del producto");
                     String date=view.getInput("Escribe la fecha: "); //Si nos ponemos mamones podemos hacerlo automatico
                     int cantidad=Integer.parseInt(view.getInput("Escriba cuanto producto quiere"));
-                    if(controllerPed.generarPedido(code,date,cantidad)){
+                    if(controladorPedido.generarPedido(code,date,cantidad)){
                         view.displayMessage("Pedido Exitoso");
                     }else {
                         view.displayMessage("Pedido Fallido");
                     }
+                    */
+
                     break;
       //GENERAR FACTURA
                 case 5:
@@ -322,7 +341,17 @@ public class Main {
                         view.displayMessage("Factura no generada");
                     };
                     break;
+                case 6:
+                    System.out.println(tienda.nInventory);
+                    TiendaC.bubbleSort(tienda);
+                    for (int i = 0; i < 100; i++) {
+                        if (tienda.getProductos()[i] == null) {
+                            view.displayMessage("NULL000000000000");
+                        } else {
+                                view.displayMessage(tienda.getProductos()[i].toString());
+                            }
+                        }
+                    }
+                    }
             }
         }
-    }
-}

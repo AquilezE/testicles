@@ -19,7 +19,7 @@ public class ProductoC {
                 productos[i].setDescripcion(nuevaDescripcion);
                 productos[i].setNumExistencias(nuevasExistencias);
                 for (Proveedor p: tienda.getProveedores()) {
-                        if(p.getNombre()!=null&&p.getNombre().equals(nameProv)){
+                        if(p!=null&&p.getNombre().equals(nameProv)){
                             productos[i].setProveedor(p);
                         }
                 }
@@ -42,19 +42,14 @@ public class ProductoC {
 
         Producto[] productos = tienda.getProductos();
         for (int i = 0; i < productos.length; i++) {
-            if (productos[i] != null && productos[i].getCodigo().equals(codigo)) {
-                productos[i].setPrecioVenta(0);
-                productos[i].setDescuento(0);
-                productos[i].setDescripcion(null);
-                productos[i].setNumExistencias(0);
-                productos[i].setCodigo(null);
-                productos[i].setProveedor(null);
-                ProductoElectronico temp=(ProductoElectronico) productos[i];
-                temp.setNumSerie(null);
+            if (productos[i]==null){
+                continue;
+            }
+            if (productos[i].getCodigo().equals(codigo)) {
+                productos[i]=null;
 
-                tienda.setnInventory(tienda.getnInventory()-1);
-
-                TiendaC.quickSort(tienda,0,tienda.getnInventory()-1);
+                TiendaC.bubbleSort(tienda);
+                tienda.nInventory=tienda.nInventory-1;
                 // Serialize the updated Tienda object after modifying the Producto
                 try {
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
@@ -67,7 +62,5 @@ public class ProductoC {
             }
         }
         return false;
-
     }
-
 }
