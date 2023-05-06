@@ -6,10 +6,7 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Inicializa all
-
-
-        //Deserializes tienda if it exists
+        //Deserializa lat tienda si tienda.ser existe
         Tienda tienda;
         File file = new File("tienda.ser");
 
@@ -20,10 +17,10 @@ public class Main {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            // If the file does not exist, create a new Tienda object
+            // Si el archivo no existe, entonces crea una tienda
             tienda = new Tienda("Abarrotes Mari", "ABC123");
 
-            // Only serialize the new Tienda object if the file does not exist
+            // Solo serializa la nueva tienda si el archivo no existe
             if (!file.exists()) {
                 try {
                     FileOutputStream fileOut = new FileOutputStream(file);
@@ -31,12 +28,14 @@ public class Main {
                     out.writeObject(tienda);
                     out.close();
                     fileOut.close();
-                    System.out.println("Serialized data is saved in tienda.ser");
+                    System.out.println("Datos serializados guardados en tienda.ser");
                 } catch (IOException ex) {
                     //e.printStackTrace();
                 }
             }
         }
+
+        //todos los controladores
         FacturaC controllerF=new FacturaC(tienda);
         TiendaC controller = new TiendaC(tienda);
         ProvC controllerP = new ProvC(tienda);
@@ -44,7 +43,7 @@ public class Main {
         PedidoC controllerPed= new PedidoC(tienda);
         View view = new View();
 
-        int opcionsota = 420;
+        int opcionsota = 200;
         while (opcionsota != 0) {
             try {
                 FileInputStream fis = new FileInputStream("tienda.ser");
@@ -80,24 +79,22 @@ public class Main {
 
                     switch (opcion) {
                         case 1:
-                            String codigo = view.getInput("Enter product code:");
-                            float precioVenta = Float.parseFloat(view.getInput("Enter product selling price:"));
-                            float descuento = Float.parseFloat(view.getInput("Enter product discount:"));
-                            String descripcion = view.getInput("Enter product description:");
-                            int numExistencias = Integer.parseInt(view.getInput("Enter number of product units:"));
-                            String numSerie = view.getInput("Enter product serial number:");
-                            String nombre = view.getInput("Enter name of the provider of product");
+                            String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
+                            String codigo = view.getInput("Escribe el codigo del producto:");
+                            float precioVenta = Float.parseFloat(view.getInput("Escribe el precio del producto:"));
+                            float descuento = Float.parseFloat(view.getInput("Escribe el descuento del producto:"));
+                            String descripcion = view.getInput("Escribe la descripcion del producto:");
+                            int numExistencias = Integer.parseInt(view.getInput("Escribe el numero de existencias del producto:"));
+                            String numSerie = view.getInput("Escribe el numero de serie del producto:");
 
-                            boolean addedSuccessfully = controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre);
-
-                            if (addedSuccessfully) {
-                                view.displayMessage("Product added successfully");
+                            if (controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre)) {
+                                view.displayMessage("Producto añadido");
                             } else {
-                                view.displayMessage("Failed to add product");
+                                view.displayMessage("Producto no añadido");
                             }
                             break;
                         case 2:
-                            codigo = view.getInput("Enter new product code:");
+                            codigo = view.getInput("Es:");
                             precioVenta = Float.parseFloat(view.getInput("Enter new product selling price:"));
                             descuento = Float.parseFloat(view.getInput("Enter new product discount:"));
                             descripcion = view.getInput("Enter new product description:");
@@ -320,9 +317,9 @@ public class Main {
                     String codProd=view.getInput("Escribe el codigo del producto: ");
 
                     if (controllerF.generarFactura(nomCliente,codProd)){
-                        view.displayMessage("Factura Exitoso");
+                        view.displayMessage("Factura generada exitosamente");
                     }else{
-                        view.displayMessage("Factura Fallida");
+                        view.displayMessage("Factura no generada");
                     };
                     break;
             }

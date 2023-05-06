@@ -48,7 +48,7 @@ public class ClienteC {
                 clientes[i].setDireccion(direccion);
 
 
-                // Serialize the updated Tienda object after modifying the Producto
+                // Serializa la tienda despues de modificar Cliente
                 try {
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
                     out.writeObject(tienda);
@@ -75,7 +75,7 @@ public class ClienteC {
                 tienda.nClientes=(tienda.nClientes-1);
 
                 ClienteC.quickSort(tienda,0,tienda.nClientes-1);
-                // Serialize the updated Tienda object after modifying the Producto
+                // Serializa tienda despues de eliminar el cliente
                 try {
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
                     out.writeObject(tienda);
@@ -142,7 +142,7 @@ public class ClienteC {
                     tienda.getClientes()[j] = temp;
                 }
             } else {
-                // move null values to the end of the array
+                // mueve los clientes vacios al final del array
                 Cliente temp = tienda.getClientes()[j];
                 tienda.getClientes()[j] = tienda.getClientes()[high];
                 tienda.getClientes()[high] = temp;

@@ -14,6 +14,8 @@ public class FacturaC {
         this.tienda=tienda;
     }
 
+    //Agrega factura a un cliente especifico y a la tienda
+    //No quita las cosas que compro en si, no se si hacerlo aqui
     public boolean generarFactura(String nombreCliente, String codigoProd){
         Cliente tempCliete = null;
         ProductoElectronico tempProd = null;
@@ -40,8 +42,6 @@ public class FacturaC {
         tienda.getFacturas()[tienda.nFacturas]=temp;
         tienda.nFacturas++;
 
-
-
         try {
             FileOutputStream fos = new FileOutputStream("tienda.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -51,7 +51,6 @@ public class FacturaC {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return true;
     }
 }
