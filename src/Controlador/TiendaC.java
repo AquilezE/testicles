@@ -45,7 +45,7 @@ public class TiendaC {
         return true;
     }
 
-    public Producto buscarProductoCode(Tienda tienda, String codigo) {
+    public static Producto buscarProductoCode(Tienda tienda, String codigo) {
         for (Producto p : tienda.getProductos()) {
             if (p.getDescripcion() != null && p.getCodigo().equals(codigo)) {
                 return p;
@@ -54,7 +54,7 @@ public class TiendaC {
         return null;
     }
 
-    public Producto buscarProductoDesc(Tienda tienda, String descripcion) {
+    public static Producto buscarProductoDesc(Tienda tienda, String descripcion) {
         for (Producto p : tienda.getProductos()) {
             if (p.getDescripcion() != null && p.getDescripcion().equals(descripcion)) {
                 return p;
@@ -63,7 +63,7 @@ public class TiendaC {
         return null;
     }
 
-    public Producto buscarProductoNSerie(Tienda tienda, String numSerie) {
+    public static Producto buscarProductoNSerie(Tienda tienda, String numSerie) {
         for (int i = 0; i < tienda.getnInventory(); i++) {
             if (tienda.getProductos()[i].getCodigo() != null && tienda.getProductos()[i] instanceof ProductoElectronico && ((ProductoElectronico) tienda.getProductos()[i]).getNumSerie().equals(numSerie)) {
                 return tienda.getProductos()[i];

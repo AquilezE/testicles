@@ -4,7 +4,7 @@ import Controlador.ProductoC;
 import Controlador.TiendaC;
 import Model.Tienda;
 
-public class prodV {
+public class ProdV {
 
     public static void addProd(TiendaC controller,View view){
             String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
@@ -53,4 +53,27 @@ public class prodV {
         }
     }
 
+    public static void buscarProducto(View view, Tienda tienda) {
+        view.displayMessage("Busqueda por:\n\t1)Numero de Serie\n\t2)Descripcion\n\t3)Codigo");
+        int optdisplay;
+        optdisplay = Integer.parseInt(view.getInput(">"));
+        switch (optdisplay) {
+            case 1:
+                String nSerie;
+                nSerie = view.getInput("Escribe el numero de serie: ");
+                view.displayMessage(TiendaC.buscarProductoCode(tienda, nSerie).toString());
+                break;
+            case 2:
+                String Desc;
+                Desc = view.getInput("Escribe la descripcion: ");
+                view.displayMessage(TiendaC.buscarProductoDesc(tienda, Desc).toString());
+                break;
+            case 3:
+                String code;
+                code = view.getInput("Escribe el codigo: ");
+                view.displayMessage(TiendaC.buscarProductoCode(tienda, code).toString());
+                break;
+
+        }
+    }
 }

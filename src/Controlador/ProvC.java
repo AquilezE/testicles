@@ -1,6 +1,7 @@
 package Controlador;
 
 
+import Model.Producto;
 import Model.Proveedor;
 import Model.Tienda;
 
@@ -12,7 +13,7 @@ public class ProvC {
     private Tienda tienda;
 
     public ProvC(Tienda tienda) {
-        this.tienda=tienda;
+        this.tienda = tienda;
     }
 
     public boolean addProovedor(Proveedor proveedor) {
@@ -56,18 +57,17 @@ public class ProvC {
         return false;
     }
 
-    public static boolean eliminarProv(Tienda tienda, String nombre){
+    public static boolean eliminarProv(Tienda tienda, String nombre) {
 
         Proveedor[] proveedors = tienda.getProveedores();
         for (int i = 0; i < proveedors.length; i++) {
             if (proveedors[i] != null && proveedors[i].getNombre().equals(nombre)) {
-                proveedors[i].setNombre(null);
-                proveedors[i].setTelefono(null);
-                proveedors[i].setEmail(null);
 
-                tienda.nProovedores=(tienda.nProovedores-1);
+                proveedors[i] = null;
 
-                ProvC.quickSortProveedores(tienda,0,tienda.nProovedores-1);
+                tienda.nProovedores = (tienda.nProovedores - 1);
+
+                ProvC.bubbleSort(tienda);
                 // Serialize the updated Tienda object after modifying the Producto
                 try {
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
@@ -82,74 +82,55 @@ public class ProvC {
         return false;
 
     }
-    public Proveedor buscarProovedorNombre(Tienda tienda,String nombre) {
+
+    public static Proveedor buscarProovedorNombre(Tienda tienda, String nombre) {
         for (Proveedor p : tienda.getProveedores()) {
-            if (p.getNombre()!=null && p.getNombre().equals(nombre)) {
-                return p;
-            }
-        }
-        return null;
-    }
-    public Proveedor buscarProovedorEmail(Tienda tienda,String email) {
-        for (Proveedor p : tienda.getProveedores()) {
-            if (p.getEmail()!=null && p.getEmail().equals(email)) {
-                return p;
-            }
-        }
-        return null;
-    }
-    public Proveedor buscarProovedorTel(Tienda tienda,String tel) {
-        for (Proveedor p : tienda.getProveedores()) {
-            if (p.getTelefono()!=null && p.getTelefono().equals(tel)) {
+            if (p.getNombre() != null && p.getNombre().equals(nombre)) {
                 return p;
             }
         }
         return null;
     }
 
-    public static void quickSortProveedores(Tienda tienda, int low, int high) {
-        if (low < high) {
-            int pi = partitionProveedores(tienda, low, high);
-            quickSortProveedores(tienda, low, pi - 1);
-            quickSortProveedores(tienda, pi + 1, high);
+    public static Proveedor buscarProovedorEmail(Tienda tienda, String email) {
+        for (Proveedor p : tienda.getProveedores()) {
+            if (p.getEmail() != null && p.getEmail().equals(email)) {
+                return p;
+            }
         }
+        return null;
     }
 
-    private static int partitionProveedores(Tienda tienda, int low, int high) {
-        Proveedor pivot = tienda.getProveedores()[high];
-        int i = low - 1;
-
-        for (int j = low; j < high; j++) {
-            // Compare emails, if they exist
-            if (tienda.getProveedores()[j].getEmail() != null && pivot.getEmail() != null) {
-                if (tienda.getProveedores()[j].getEmail().compareTo(pivot.getEmail()) < 0) {
-                    i++;
+    public static Proveedor buscarProovedorTel(Tienda tienda, String tel) {
+        for (Proveedor p : tienda.getProveedores()) {
+            if (p.getTelefono() != null && p.getTelefono().equals(tel)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    public  static void bubbleSort(Tienda tienda) {
+        boolean swapped = true;
+        int n = tienda.getProveedores().length;
+        while (swapped) {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if (tienda.getProveedores()[i] == null && tienda.getProveedores()[i + 1] != null) {
+                    // Swap null element to the end of the array
                     Proveedor temp = tienda.getProveedores()[i];
-                    tienda.getProveedores()[i] = tienda.getProveedores()[j];
-                    tienda.getProveedores()[j] = temp;
+                    tienda.getProveedores()[i] = tienda.getProveedores()[i + 1];
+                    tienda.getProveedores()[i + 1] = temp;
+                    swapped = true;
+                } else if (tienda.getProveedores()[i] != null && tienda.getProveedores()[i + 1] != null &&
+                        tienda.getProveedores()[i].getNombre().compareTo(tienda.getProveedores()[i + 1].getNombre()) > 0) {
+                    // Swap elements that are out of order
+                    Proveedor temp = tienda.getProveedores()[i];
+                    tienda.getProveedores()[i] = tienda.getProveedores()[i + 1];
+                    tienda.getProveedores()[i + 1] = temp;
+                    swapped = true;
                 }
             }
-            // If both are null, don't swap
-            else if (tienda.getProveedores()[j].getEmail() == null && pivot.getEmail() == null) {
-                continue;
-            }
-            // If j's email is null, swap with the end
-            else if (tienda.getProveedores()[j].getEmail() == null) {
-                continue;
-            }
-            // If pivot's email is null, swap with j
-            else {
-                i++;
-                Proveedor temp = tienda.getProveedores()[i];
-                tienda.getProveedores()[i] = tienda.getProveedores()[j];
-                tienda.getProveedores()[j] = temp;
-            }
+            n--;
         }
-
-        Proveedor temp = tienda.getProveedores()[i + 1];
-        tienda.getProveedores()[i + 1] = tienda.getProveedores()[high];
-        tienda.getProveedores()[high] = temp;
-
-        return i + 1;
     }
 }
