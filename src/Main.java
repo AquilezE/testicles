@@ -60,8 +60,8 @@ public class Main {
             System.out.println("\t3.- Manipular clientes");
             System.out.println("\t4.- Generar Pedido");
             System.out.println("\t5.- Generar factura");
-            System.out.println("\t6.- CONSULTA LIBRE");
-            System.out.println("\t7.- CONSULTA LIBRE");
+            System.out.println("\t6.- Monstrar Facturas y Pedidos:");
+            System.out.println("\t7.- Mostrar productos ordenados");
             System.out.println("\t0.- Salir");
 
             opcionsota = Integer.parseInt(view.getInput(">"));
