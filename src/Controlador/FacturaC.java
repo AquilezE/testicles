@@ -1,6 +1,7 @@
 package Controlador;
 
 import Model.*;
+import Vista.View;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,13 +26,15 @@ public class FacturaC {
                 tempCliete=tienda.getClientes()[i];
                 break;
             }
-            return false;
         }
         for (int i=0; i<tienda.getProductos().length;i++){
             if(tienda.getProductos()[i].getCodigo().equals(codigoProd)){
                 tempProd=(ProductoElectronico)tienda.getProductos()[i];
                 break;
             }
+        }
+
+        if (tempCliete==null||tempProd==null){
             return false;
         }
 
@@ -53,4 +56,20 @@ public class FacturaC {
         }
         return true;
     }
+    public static void mostrarFacturasCliente(View view, Tienda tienda){
+        for (Cliente c: tienda.getClientes()){
+            for (Factura f: c.getFacturas()){
+                view.displayMessage(f.toString());
+            }
+        }
+    }
+    public static void mostrarFacturasTienda(View view, Tienda tienda){
+        view.displayMessage("facturas de "+tienda.getNombre());
+        for (Factura f:tienda.getFacturas()){
+            if (f!=null){
+                view.displayMessage("---"+f);
+            }
+        }
+    }
+    //MOSTRAR TOTAL
 }

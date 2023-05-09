@@ -1,7 +1,10 @@
 package Controlador;
 
+import Model.Factura;
 import Model.Pedido;
+import Model.Proveedor;
 import Model.Tienda;
+import Vista.View;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,5 +41,31 @@ public class ControladorPedido {
             }
         }
         return false;
+    }
+
+    public static void mostrarPedidosProveedor(View view, Tienda tienda){
+
+        String prov=view.getInput("Ingrese el nombre del Proveedor: ");
+        for (Proveedor p: tienda.getProveedores()){
+            if (p!=null && p.getNombre().equals(prov)){
+                view.displayMessage(p.toString());
+            }
+        }
+        for (Pedido c: tienda.getPedidos()){
+            if (c!=null&&c.getProvAsignado().getNombre().equals(prov)) {
+                view.displayMessage(c.toString());
+            }
+        }
+        //MOSTRAR TOTAL
+    }
+    public static void mostrarPedidosTienda(View view, Tienda tienda){
+
+        view.displayMessage("Pedidos de "+tienda.getNombre());
+        for (Pedido p:tienda.getPedidos()){
+            if (p!=null){
+                view.displayMessage("---"+p);
+            }
+        }
+        //MOSTRAR TOTAL
     }
 }

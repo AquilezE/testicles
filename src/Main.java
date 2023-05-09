@@ -270,7 +270,8 @@ public class Main {
                     view.displayMessage("\t3.- Eliminar cliente");
                     view.displayMessage("\t4.- Consultar todos los clientes");
                     view.displayMessage("\t5.- Consultar algún cliente en específico");
-                    view.displayMessage("\t6.- Regresar");
+                    view.displayMessage("\t6.- Lista de todos los clientes con productos comprados");
+                    view.displayMessage("\t7.- Regresar");
 
                     opcion = Integer.parseInt(view.getInput(">"));
 
@@ -355,6 +356,9 @@ public class Main {
                              */
                             break;
                         case 6:
+                            ClienteV.clientesyProductos(view,tienda);
+                            break;
+                        case 7:
                             break;
                     }
                     break;
@@ -389,10 +393,42 @@ public class Main {
                     */
                     break;
                 case 6:
+                    view.displayMessage("1)Mostrar todas las facturas de la tienda");
+                    view.displayMessage("2)Mostrar todos los pedidos de la tienda");
+                    view.displayMessage("3)Mostrar todas las facturas de un cliente");
+                    view.displayMessage("4)Mostrar todos los pedidos a un proovedor");
+                    view.displayMessage("5) Regresar");
+                    int option=Integer.parseInt(view.getInput(">:"));
+
+                    switch (option) {
+                        case 1: FacturaC.mostrarFacturasTienda(view, tienda); break;
+                        case 2: ControladorPedido.mostrarPedidosTienda(view, tienda); break;
+                        case 3: FacturaC.mostrarFacturasCliente(view, tienda); break;
+                        case 4: ControladorPedido.mostrarPedidosProveedor(view, tienda); break;
+                        case 5: break;
+                    }
                     break;
                 case 7:
-                    break;
+                    view.displayMessage("Mostrar productos ordenados por:");
+                    view.displayMessage("1)Precio");
+                    view.displayMessage("2)Descuento");
+                    view.displayMessage("3)Existencias");
+                    opcion = Integer.parseInt(view.getInput(">"));
 
+                    switch (opcion){
+                        case 1:
+                            TiendaC.bubbleSortPrecio(tienda);
+                            ProdV.verProductos(view,tienda);
+                            break;
+                        case 2:
+                            TiendaC.bubbleSortDescuento(tienda);
+                            ProdV.verProductos(view, tienda);
+                            break;
+                        case 3:
+                            TiendaC.bubbleSortExistencias(tienda);
+                            ProdV.verProductos(view,tienda);
+                    }
+                    break;
                     }
                 }
             }

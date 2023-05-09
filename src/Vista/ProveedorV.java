@@ -1,13 +1,14 @@
 package Vista;
 
 import Controlador.ProvC;
+import Model.Producto;
 import Model.Proveedor;
 import Model.Tienda;
 
 public class ProveedorV {
 
 
-    public static void addProveedor(View view, ProvC controllerP){
+    public static void addProveedor(View view, ProvC controllerP) {
         String nombre = view.getInput("Inserta del nombre del proovedor");
         String telefono = view.getInput("Inserta del telefono del proovedor");
         String email = view.getInput("Inserta del email del proovedor");
@@ -21,7 +22,7 @@ public class ProveedorV {
         }
     }
 
-    public static void modProveedor(View view, Tienda tienda){
+    public static void modProveedor(View view, Tienda tienda) {
         String nombre = view.getInput("Inserta el nombre del proovedor a modificar");
         String telefono = view.getInput("Inserta el nuevo telefono del proovedor");
         String email = view.getInput("Inserta el nuevo email del proovedor");
@@ -33,7 +34,7 @@ public class ProveedorV {
         }
     }
 
-    public static void eliminarProv(View view, Tienda tienda){
+    public static void eliminarProv(View view, Tienda tienda) {
         String nombre = view.getInput("Inserta el nombre del proovedor a eliminar");
         if (ProvC.eliminarProv(tienda, nombre)) {
             view.displayMessage("Proveedor eliminado: " + nombre);
@@ -42,14 +43,14 @@ public class ProveedorV {
         }
     }
 
-    public static void mostrarProveedores(View view, Tienda tienda){
+    public static void mostrarProveedores(View view, Tienda tienda) {
         ProvC.bubbleSort(tienda);
         for (int i = 0; i < tienda.nProovedores; i++) {
             view.displayMessage(tienda.getProveedores()[i].toString());
         }
     }
 
-    public static void buscarProovedor(View view, Tienda tienda){
+    public static void buscarProovedor(View view, Tienda tienda) {
         view.displayMessage("Busqueda por:\n\t1)Nombre\n\t2)Telefono\n\t3)Email");
         int optdisplay;
         optdisplay = Integer.parseInt(view.getInput(">"));
@@ -69,6 +70,19 @@ public class ProveedorV {
                 emeil = view.getInput("Escribe el codigo: ");
                 view.displayMessage(ProvC.buscarProovedorEmail(tienda, emeil).toString());
                 break;
+        }
+    }
+
+    public static void proveedoresyProductos(View view, Tienda tienda) {
+        ProvC.bubbleSort(tienda);
+        for (int i = 0; i < tienda.nProovedores; i++) {
+            view.displayMessage(tienda.getProveedores()[i].toString());
+            for (Producto p : tienda.getProductos()) {
+                if (p != null && p.getProveedor().getNombre().equals(tienda.getProveedores()[i].getNombre())) {
+                    view.displayMessage(p.toString());
+                }
+            }
+
         }
     }
 }

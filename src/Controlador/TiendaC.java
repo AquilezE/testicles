@@ -96,4 +96,77 @@ public class TiendaC {
             n--;
         }
     }
+
+    public static void bubbleSortPrecio(Tienda tienda) {
+        boolean swapped = true;
+        int n = tienda.getProductos().length;
+        while (swapped) {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if (tienda.getProductos()[i] == null && tienda.getProductos()[i + 1] != null) {
+                    // Swap null element to the end of the array
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                } else if (tienda.getProductos()[i] != null && tienda.getProductos()[i + 1] != null &&
+                        tienda.getProductos()[i].getPrecioVenta() > tienda.getProductos()[i + 1].getPrecioVenta()) {
+                    // Swap elements that are out of order
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+            n--;
+        }
+    }
+    public static void bubbleSortDescuento(Tienda tienda) {
+        boolean swapped = true;
+        int n = tienda.getProductos().length;
+        while (swapped) {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if (tienda.getProductos()[i] == null && tienda.getProductos()[i + 1] != null) {
+                    // Swap null element to the end of the array
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                } else if (tienda.getProductos()[i] != null && tienda.getProductos()[i + 1] != null &&
+                        tienda.getProductos()[i].getDescuento() > tienda.getProductos()[i + 1].getDescuento()) {
+                    // Swap elements that are out of order
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+            n--;
+        }
+    }
+    public static void bubbleSortExistencias(Tienda tienda) {
+        boolean swapped = true;
+        int n = tienda.getProductos().length;
+        while (swapped) {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if (tienda.getProductos()[i] == null && tienda.getProductos()[i + 1] != null) {
+                    // Swap null element to the end of the array
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                } else if (tienda.getProductos()[i] != null && tienda.getProductos()[i + 1] != null &&
+                        tienda.getProductos()[i].getNumExistencias() > tienda.getProductos()[i + 1].getNumExistencias()) {
+                    // Swap elements that are out of order
+                    Producto temp = tienda.getProductos()[i];
+                    tienda.getProductos()[i] = tienda.getProductos()[i + 1];
+                    tienda.getProductos()[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+            n--;
+        }
+    }
 }

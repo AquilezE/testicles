@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ClienteC;
+import Model.Factura;
 import Model.Tienda;
 
 public class ClienteV {
@@ -72,5 +73,18 @@ public class ClienteV {
                 view.displayMessage(ClienteC.buscarClienteDireccion(tienda, dir).toString());
                 break;
         }
+    }
+    public static void clientesyProductos(View view, Tienda tienda){
+        ClienteC.bubbleSort(tienda);
+        for (int i = 0; i < tienda.nClientes; i++) {
+            view.displayMessage(tienda.getClientes()[i].toString());
+            for (Factura f: tienda.getClientes()[i].getFacturas()) {
+                if (f!=null) {
+                    view.displayMessage(f.getProdVendido().getCodigo());
+                }
+            }
+
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ControladorPedido;
+import Model.*;
 
 public class PedidoV {
 

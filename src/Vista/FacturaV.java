@@ -1,6 +1,9 @@
 package Vista;
 
 import Controlador.FacturaC;
+import Model.Cliente;
+import Model.Factura;
+import Model.Tienda;
 
 public class FacturaV {
     public static void generarPedido(FacturaC controllerF, View view){
@@ -11,6 +14,6 @@ public class FacturaV {
             view.displayMessage("Factura generada exitosamente");
         }else{
             view.displayMessage("Factura no generada");
-        };
+        }
     }
 }
