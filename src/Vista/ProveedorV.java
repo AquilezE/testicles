@@ -53,7 +53,7 @@ public class ProveedorV {
     public static void buscarProovedor(View view, Tienda tienda) {
         view.displayMessage("Busqueda por:\n\t1)Nombre\n\t2)Telefono\n\t3)Email");
         int optdisplay;
-        optdisplay = Integer.parseInt(view.getInput(">"));
+        optdisplay = view.leerEntero(">");
         switch (optdisplay) {
             case 1:
                 String nom;

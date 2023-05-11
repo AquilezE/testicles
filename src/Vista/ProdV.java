@@ -9,10 +9,10 @@ public class ProdV {
     public static void addProd(TiendaC controller,View view){
             String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
             String codigo = view.getInput("Escribe el codigo del producto:");
-            float precioVenta = Float.parseFloat(view.getInput("Escribe el precio del producto:"));
-            float descuento = Float.parseFloat(view.getInput("Escribe el descuento del producto:"));
+            float precioVenta =view.leerFloat("Escribe el precio del producto:");
+            float descuento = view.leerFloat("Escribe el descuento del producto:");
             String descripcion = view.getInput("Escribe la descripcion del producto:");
-            int numExistencias = Integer.parseInt(view.getInput("Escribe el numero de existencias del producto:"));
+            int numExistencias = view.leerEntero("Escribe el numero de existencias del producto:");
             String numSerie = view.getInput("Escribe el numero de serie del producto:");
 
             if (controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre)) {
@@ -23,10 +23,10 @@ public class ProdV {
         }
     public static void modProd(View view,Tienda tienda){
         String codigo = view.getInput("Es:");
-        Float precioVenta = Float.parseFloat(view.getInput("Enter new product selling price:"));
-        Float descuento = Float.parseFloat(view.getInput("Enter new product discount:"));
+        Float precioVenta = view.leerFloat("Enter new product selling price:");
+        Float descuento = view.leerFloat("Enter new product discount:");
         String descripcion = view.getInput("Enter new product description:");
-        int numExistencias = Integer.parseInt(view.getInput("Enter new number of product units:"));
+        int numExistencias = view.leerEntero("Enter new number of product units:");
         String provedorName=view.getInput("Enter the name of the provider");
         if (ProductoC.modificarProducto(tienda, codigo, precioVenta, descuento, descripcion, numExistencias,provedorName)) {
             view.displayMessage("Producto modificado: " + codigo);
@@ -56,7 +56,7 @@ public class ProdV {
     public static void buscarProducto(View view, Tienda tienda) {
         view.displayMessage("Busqueda por:\n\t1)Numero de Serie\n\t2)Descripcion\n\t3)Codigo");
         int optdisplay;
-        optdisplay = Integer.parseInt(view.getInput(">"));
+        optdisplay = view.leerEntero(">");
         switch (optdisplay) {
             case 1:
                 String nSerie;

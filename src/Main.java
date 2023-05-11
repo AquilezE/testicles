@@ -64,7 +64,7 @@ public class Main {
             System.out.println("\t7.- Mostrar productos ordenados");
             System.out.println("\t0.- Salir");
 
-            opcionsota = Integer.parseInt(view.getInput(">"));
+            opcionsota = view.leerEntero(">");
 
             switch (opcionsota) {
                 case (1):
@@ -75,7 +75,7 @@ public class Main {
                     view.displayMessage("\t4.- Consultar todos los productos");
                     view.displayMessage("\t5.- Consultar algún producto en específico");
                     view.displayMessage("\t6.- Regresar");
-                    int opcion = Integer.parseInt(view.getInput(">"));
+                    int opcion = view.leerEntero(">");
 
                     switch (opcion) {
                         case 1:
@@ -177,7 +177,7 @@ public class Main {
                     view.displayMessage("\t5.- Consultar algún proveedor en específico");
                     view.displayMessage("\t6.- Regresar");
 
-                    opcion = Integer.parseInt(view.getInput(">"));
+                    opcion = view.leerEntero(">");
                     switch (opcion) {
                         case 1:
                             ProveedorV.addProveedor(view,controllerP);
@@ -273,7 +273,7 @@ public class Main {
                     view.displayMessage("\t6.- Lista de todos los clientes con productos comprados");
                     view.displayMessage("\t7.- Regresar");
 
-                    opcion = Integer.parseInt(view.getInput(">"));
+                    opcion = view.leerEntero(">");
 
                     switch (opcion){
                         case 1:
@@ -398,7 +398,7 @@ public class Main {
                     view.displayMessage("3)Mostrar todas las facturas de un cliente");
                     view.displayMessage("4)Mostrar todos los pedidos a un proovedor");
                     view.displayMessage("5) Regresar");
-                    int option=Integer.parseInt(view.getInput(">:"));
+                    int option=view.leerEntero(">:");
 
                     switch (option) {
                         case 1: FacturaC.mostrarFacturasTienda(view, tienda); break;
@@ -413,7 +413,7 @@ public class Main {
                     view.displayMessage("1)Precio");
                     view.displayMessage("2)Descuento");
                     view.displayMessage("3)Existencias");
-                    opcion = Integer.parseInt(view.getInput(">"));
+                    opcion = view.leerEntero(">");
 
                     switch (opcion){
                         case 1:

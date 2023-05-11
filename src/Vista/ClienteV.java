@@ -50,7 +50,7 @@ public class ClienteV {
     public static void buscarCliente(View view, Tienda tienda){
         view.displayMessage("Busqueda por:\n\t1)Nombre\n\t2)RFC\n\t3)Email\n\t4)Direccion");
         int optdisplay;
-        optdisplay = Integer.parseInt(view.getInput(">"));
+        optdisplay = view.leerEntero(">");
         switch (optdisplay) {
             case 1:
                 String nom;
