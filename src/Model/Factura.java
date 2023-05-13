@@ -41,9 +41,18 @@ public class Factura implements Serializable {
     }
     @Override
     public String toString() {
-        return "Factura{" +
-                "cliente=" + cliente +
-                ", prodVendido=" + prodVendido +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("═══════════════════════\n"); // Línea superior
+        sb.append(" Factura\n");
+        sb.append("═══════════════════════\n\n");
+        sb.append(" Cliente: ").append(cliente).append("\n");
+        sb.append(" Productos Vendidos: ").append(prodVendido).append("\n");
+        sb.append("═══════════════════════\n"); // Línea inferior
+    
+        return sb.toString();
     }
+    
+  
+
+
 }

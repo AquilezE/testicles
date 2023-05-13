@@ -23,15 +23,21 @@ public abstract class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "codigo='" + codigo + '\'' +
-                ", precioVenta=" + precioVenta +
-                ", descuento=" + descuento +
-                ", descripcion='" + descripcion + '\'' +
-                ", numExistencias=" + numExistencias +
-                ", proveedor="+proveedor+
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("═══════════════════════\n"); // Línea superior
+        sb.append(" Producto\n");
+        sb.append("═══════════════════════\n\n");
+        sb.append(" Código: ").append(codigo).append("\n");
+        sb.append(" Precio de Venta: ").append(precioVenta).append("\n");
+        sb.append(" Descuento: ").append(descuento).append("\n");
+        sb.append(" Descripción: ").append(descripcion).append("\n");
+        sb.append(" Número de Existencias: ").append(numExistencias).append("\n");
+        sb.append(" Proveedor: ").append(proveedor).append("\n");
+        sb.append("═══════════════════════\n"); // Línea inferior
+    
+        return sb.toString();
     }
+    
 
     public String getCodigo() {
         return codigo;

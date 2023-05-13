@@ -42,11 +42,17 @@ public class Pedido implements Serializable {
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                "prodPedido=" +  prodPedido+
-                "cantidadProd="+cantidadProd+
-                ", fechaPedido='" + fechaPedido + '\'' +
-                ", provAsignado=" + provAsignado +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("═══════════════════════\n"); // Línea superior
+        sb.append(" Pedido\n");
+        sb.append("═══════════════════════\n\n");
+        sb.append(" Productos Pedidos: ").append(prodPedido).append("\n");
+        sb.append(" Cantidad de Productos: ").append(cantidadProd).append("\n");
+        sb.append(" Fecha de Pedido: ").append(fechaPedido).append("\n");
+        sb.append(" Proveedor Asignado: ").append(provAsignado).append("\n");
+        sb.append("═══════════════════════\n"); // Línea inferior
+    
+        return sb.toString();
     }
+    
 }

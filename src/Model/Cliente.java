@@ -55,12 +55,16 @@ public class Cliente implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Cliente{" +
-                "nombre='" + nombre + '\'' +
-                ", rfc='" + rfc + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+     public String toString() {
+        StringBuilder sb = new StringBuilder();
+    
+        sb.append("─────────────────────────\n");
+        sb.append(String.format(" Nombre    : %-10s \n", nombre));
+        sb.append(String.format(" RFC       : %-10s \n", rfc));
+        sb.append(String.format(" Dirección : %-10s \n", direccion));
+        sb.append(String.format(" Email     : %-10s \n", email));
+        sb.append("─────────────────────────");
+    
+        return sb.toString();
     }
 }

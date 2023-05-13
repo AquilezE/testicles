@@ -44,7 +44,14 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return 
-                 nombre +"\t\t"+ telefono +"\t\t"+ email;
-    } 
+        StringBuilder sb = new StringBuilder();
+        sb.append("─────────────────────────────────────\n");
+        sb.append(" Nombre: ").append(nombre).append("\n");
+        sb.append(" Teléfono: ").append(telefono).append("\n");
+        sb.append(" Email: ").append(email).append("\n");
+        sb.append("─────────────────────────────────────\n");
+    
+        return sb.toString();
+    }
+    
 }
