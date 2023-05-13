@@ -32,6 +32,9 @@ public class View {
                 scanner.nextLine();
             }
         } while (leer);
+
+
+
         return n;
     }
     public float leerFloat(String prompt) {
@@ -49,6 +52,9 @@ public class View {
                 scanner.nextLine();
             }
         } while (leer);
+
+
+
         return n;
     }
 
