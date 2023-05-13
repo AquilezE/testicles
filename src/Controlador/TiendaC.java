@@ -21,17 +21,25 @@ public class TiendaC {
             return false;
         }
         Proveedor temp = null;
+        boolean flag=true;
         for (Proveedor p : tienda.getProveedores()) {
-            if (p.getNombre() != null && p.getNombre().equals(nombre)) {
+            if (p != null && p.getNombre().equals(nombre)) {
                 temp = p;
                 break;
             }
+            else{
+                flag=false;
+            }
         }
-        Producto producto = new ProductoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie, temp);
+        if(flag==true){
+            Producto producto = new ProductoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie, temp);
+            tienda.getProductos()[tienda.getnInventory()] = producto;
+            tienda.setnInventory(tienda.getnInventory() + 1);
 
-        tienda.getProductos()[tienda.getnInventory()] = producto;
-        tienda.setnInventory(tienda.getnInventory() + 1);
-
+        }else{
+            System.out.println("Nombre de proveedor no encontrado");
+            return false;
+        }
 
         try {
             FileOutputStream fos = new FileOutputStream("tienda.ser");

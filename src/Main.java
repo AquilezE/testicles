@@ -226,7 +226,7 @@ public class Main {
                             break;
 
                         case 4:
-                            ProveedorV.mostrarProveedores(view,tienda);
+                                ProveedorV.mostrarProveedores(view,tienda);
                             /*
                             ProvC.bubbleSort(tienda);
                             for (int i = 0; i < tienda.nProovedores; i++) {
