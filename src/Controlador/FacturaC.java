@@ -19,18 +19,22 @@ public class FacturaC {
     //No quita las cosas que compro en si, no se si hacerlo aqui
     public boolean generarFactura(String nombreCliente, String codigoProd){
         Cliente tempCliete = null;
-        ProductoElectronico tempProd = null;
+        Producto tempProd = null;
 
         for (int i = 0; i <tienda.getClientes().length ; i++) {
-            if (tienda.getClientes()[i].getNombre().equals(nombreCliente)){
-                tempCliete=tienda.getClientes()[i];
-                break;
+            if (tienda.getClientes()[i]!=null) {
+                if (tienda.getClientes()[i].getNombre().equals(nombreCliente)) {
+                    tempCliete = tienda.getClientes()[i];
+                    break;
+                }
             }
         }
         for (int i=0; i<tienda.getProductos().length;i++){
-            if(tienda.getProductos()[i].getCodigo().equals(codigoProd)){
-                tempProd=(ProductoElectronico)tienda.getProductos()[i];
-                break;
+            if (tienda.getProductos()[i]!=null) {
+                if (tienda.getProductos()[i].getCodigo().equals(codigoProd)) {
+                    tempProd = tienda.getProductos()[i];
+                    break;
+                }
             }
         }
 

@@ -72,6 +72,13 @@ public class ClienteV {
                 break;
         }
     }
+
+    public static void mostrarClientesNombres(View view,Tienda tienda){
+        view.displayMessage("Clientes Disponibles:");
+        for (int i = 0; i < tienda.nClientes; i++) {
+            view.displayMessage("\t"+tienda.getClientes()[i].getNombre());
+        }
+    }
     public static void clientesyProductos(View view, Tienda tienda){
         ClienteC.bubbleSort(tienda);
         for (int i = 0; i < tienda.nClientes; i++) {

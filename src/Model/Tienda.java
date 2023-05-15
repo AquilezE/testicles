@@ -76,12 +76,12 @@ public class Tienda implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("═════════════════════════════════════\n"); // Línea superior
+        sb.append("=====================================\n"); // Línea superior
         sb.append(" Tienda\n");
-        sb.append("═════════════════════════════════════\n\n");
+        sb.append("=====================================\n\n");
         sb.append(" Nombre: ").append(nombre).append("\n");
         sb.append(" RFC: ").append(rfc).append("\n");
-        sb.append("═════════════════════════════════════\n"); // Línea inferior
+        sb.append("=====================================\n"); // Línea inferior
     
         return sb.toString();
     }

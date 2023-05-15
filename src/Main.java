@@ -79,7 +79,9 @@ public class Main {
 
                     switch (opcion) {
                         case 1:
+
                             View.cleanConsole();
+                            ProveedorV.mostrarProveedoresNombre(view,tienda);
                             ProdV.addProd(controller,view);
 
                             break;
@@ -224,13 +226,15 @@ public class Main {
 //GENERAR PEDIDO:
                 case 4:
                     View.cleanConsole();
-
+                    ProdV.verCodigoProductos(view,tienda,1);
                     PedidoV.generarPedido(controladorPedido,view);
 
                     break;
       //GENERAR FACTURA
                 case 5:
                     View.cleanConsole();
+                    ClienteV.mostrarClientesNombres(view,tienda);
+                    ProdV.verCodigoProductos(view,tienda,1);
 
                     FacturaV.generarPedido(controllerF,view);
 
@@ -279,6 +283,10 @@ public class Main {
                             View.cleanConsole();
                             view.displayMessage("Opcion Invalida");
                     }
+                    break;
+                case 0:
+                    View.cleanConsole();
+                    view.displayMessage("Adios");
                     break;
                 default:
                     View.cleanConsole();

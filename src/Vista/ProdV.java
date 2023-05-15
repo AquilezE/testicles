@@ -8,8 +8,7 @@ public class ProdV {
 
     public static void addProd(TiendaC controller,View view){
             int option= view.leerEntero("Tipo de producto: \n\t1)Producto Electronico\n\t2)Producto No electronico\n>:");
-
-            String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
+        String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
             String codigo = view.getInput("Escribe el codigo del producto:");
             float precioVenta =view.leerFloat("Escribe el precio del producto:");
             float descuento = view.leerFloat("Escribe el descuento del producto:");
@@ -47,6 +46,16 @@ public class ProdV {
         for (int i = 0; i < 100; i++) {
             if (tienda.getProductos()[i]!=null) {
                 view.displayMessage(tienda.getProductos()[i].toString());
+            }
+        }
+    }
+
+    public static void verCodigoProductos(View view, Tienda tienda,int n){
+        System.out.println(" ");
+        System.out.println("Codigo de los productos ingresados: ");
+        for (int i = 0; i < 100; i++) {
+            if (tienda.getProductos()[i]!=null) {
+                view.displayMessage("-"+tienda.getProductos()[i].getCodigo()+" Existencias:"+tienda.getProductos()[i].getNumExistencias());
             }
         }
     }

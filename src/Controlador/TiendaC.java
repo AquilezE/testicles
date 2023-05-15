@@ -23,7 +23,6 @@ public class TiendaC {
             return false;
         }
 
-        ProveedorV.mostrarProveedores(new View(), tienda);
         Proveedor temp = null;
         boolean flag=true;
         for (Proveedor p : tienda.getProveedores()) {

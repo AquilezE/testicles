@@ -73,6 +73,12 @@ public class ProveedorV {
         }
     }
 
+    public static void mostrarProveedoresNombre(View view,Tienda tienda){
+        view.displayMessage("Provedores Disponibles:");
+        for (int i = 0; i < tienda.nProovedores; i++) {
+            view.displayMessage("\t"+tienda.getProveedores()[i].getNombre());
+        }
+    }
     public static void proveedoresyProductos(View view, Tienda tienda) {
         ProvC.bubbleSort(tienda);
         for (int i = 0; i < tienda.nProovedores; i++) {
