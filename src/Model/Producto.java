@@ -25,7 +25,7 @@ public abstract class Producto implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("═══════════════════════\n"); // Línea superior
-        sb.append(" Producto\n");
+        sb.append(" Producto No Electronico\n");
         sb.append("═══════════════════════\n\n");
         sb.append(" Código: ").append(codigo).append("\n");
         sb.append(" Precio de Venta: ").append(precioVenta).append("\n");

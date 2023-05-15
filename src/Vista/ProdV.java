@@ -7,32 +7,30 @@ import Model.Tienda;
 public class ProdV {
 
     public static void addProd(TiendaC controller,View view){
+            int option= view.leerEntero("Tipo de producto: \n\t1)Producto Electronico\n\t2)Producto No electronico\n>:");
+
             String nombre = view.getInput("Escribe el nombre del proovedor del producto: ");
             String codigo = view.getInput("Escribe el codigo del producto:");
             float precioVenta =view.leerFloat("Escribe el precio del producto:");
             float descuento = view.leerFloat("Escribe el descuento del producto:");
             String descripcion = view.getInput("Escribe la descripcion del producto:");
             int numExistencias = view.leerEntero("Escribe el numero de existencias del producto:");
-            String numSerie = view.getInput("Escribe el numero de serie del producto:");
+            String numSerie=null;
+            if (option==1) {
+                numSerie = view.getInput("Escribe el numero de serie del producto:");
+            }
 
-            if (controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre)) {
+            if (controller.addProduct(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie,nombre,option)) {
                 view.displayMessage("Producto añadido");
             } else {
                 view.displayMessage("Producto no añadido");
             }
         }
     public static void modProd(View view,Tienda tienda){
-        String codigo = view.getInput("Es:");
-        Float precioVenta = view.leerFloat("Enter new product selling price:");
-        Float descuento = view.leerFloat("Enter new product discount:");
-        String descripcion = view.getInput("Enter new product description:");
-        int numExistencias = view.leerEntero("Enter new number of product units:");
-        String provedorName=view.getInput("Enter the name of the provider");
-        if (ProductoC.modificarProducto(tienda, codigo, precioVenta, descuento, descripcion, numExistencias,provedorName)) {
-            view.displayMessage("Producto modificado: " + codigo);
-        } else {
-            view.displayMessage("Producto no modificado: " + codigo);
-        }
+
+        String codigo=view.getInput("Escriba el Codigo del Producto:");
+
+        ProductoC.modificarProducto(tienda, codigo);
 
     }
 

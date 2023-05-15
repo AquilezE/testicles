@@ -1,6 +1,8 @@
 package Controlador;
 
 import Model.*;
+import Vista.ProveedorV;
+import Vista.View;
 
 import java.io.*;
 
@@ -14,29 +16,44 @@ public class TiendaC {
     }
 
     // method to add a new product to the store's inventory
-    public boolean addProduct(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias, String numSerie, String nombre) {
+    public boolean addProduct(String codigo, float precioVenta, float descuento, String descripcion, int numExistencias, String numSerie, String nombre, int opt) {
         // check if there is space in the inventory
         if (tienda.getnInventory() >= 100) {
 
             return false;
         }
+
+        ProveedorV.mostrarProveedores(new View(), tienda);
         Proveedor temp = null;
         boolean flag=true;
         for (Proveedor p : tienda.getProveedores()) {
             if (p != null && p.getNombre().equals(nombre)) {
+                System.out.print(p.getNombre());
                 temp = p;
+                flag=true;
                 break;
             }
             else{
                 flag=false;
             }
         }
-        if(flag==true){
+
+
+        if((flag==true) && (opt==1)){
             Producto producto = new ProductoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias, numSerie, temp);
             tienda.getProductos()[tienda.getnInventory()] = producto;
             tienda.setnInventory(tienda.getnInventory() + 1);
 
-        }else{
+        }
+        if ((flag==true) && (opt==2)){
+
+            Producto producto = new ProductoNoElectronico(codigo, precioVenta, descuento, descripcion, numExistencias,temp);
+            tienda.getProductos()[tienda.getnInventory()] = producto;
+            tienda.setnInventory(tienda.getnInventory() + 1);
+
+        }
+
+        if (!flag){
             System.out.println("Nombre de proveedor no encontrado");
             return false;
         }

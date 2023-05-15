@@ -3,6 +3,7 @@ package Controlador;
 import Model.Cliente;
 import Model.Proveedor;
 import Model.Tienda;
+import Vista.View;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,27 +41,67 @@ public class ClienteC {
         return true;
     }
 
-    public static boolean modificarCliente(Tienda tienda, String nombre, String rfc, String direccion, String email) {
+    public static boolean modificarCliente(Tienda tienda,String rfc) {
         Cliente[] clientes = tienda.getClientes();
+        Cliente cliente = null;
+        View view=new View();
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null && clientes[i].getRfc().equals(rfc)) {
-                clientes[i].setEmail(email);
-                clientes[i].setNombre(nombre);
-                clientes[i].setDireccion(direccion);
-
-
-                // Serializa la tienda despues de modificar Cliente
-                try {
-                    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
-                    out.writeObject(tienda);
-                    out.close();
-                } catch (IOException ex) {
-                    System.out.println("Error: " + ex.getMessage());
-                }
-                return true;
+                cliente = clientes[i];
+                break;
             }
         }
-        return false;
+
+        if (cliente == null) {
+            view.displayMessage("Cliente no encontrado: " + rfc);
+            return false;
+        }
+        int opcion;
+
+        do {
+            view.displayMessage("¿Qué deseas modificar?\n" +
+                    "1. Nombre\n" +
+                    "2. Dirección\n" +
+                    "3. Email\n" +
+                    "0. Cancelar");
+
+            opcion = view.leerEntero("Opción: ");
+
+            switch (opcion) {
+                case 1:
+                    String nuevoNombre = view.getInput("Escribe el nuevo nombre: ");
+                    cliente.setNombre(nuevoNombre);
+                    view.displayMessage("Nombre modificado: " + rfc);
+                    break;
+                case 2:
+                    String nuevaDireccion = view.getInput("Escribe la nueva dirección: ");
+                    cliente.setDireccion(nuevaDireccion);
+                    view.displayMessage("Dirección modificada: " + rfc);
+                    break;
+                case 3:
+                    String nuevoEmail = view.getInput("Escribe el nuevo email: ");
+                    cliente.setEmail(nuevoEmail);
+                    view.displayMessage("Email modificado: " + rfc);
+                    break;
+                case 0:
+                    view.displayMessage("Modificación cancelada: " + rfc);
+                    break;
+                default:
+                    view.displayMessage("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 0);
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
+            out.writeObject(tienda);
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+
+        return true;
+
     }
 
     public static boolean eliminarCliente(Tienda tienda, String rfc){

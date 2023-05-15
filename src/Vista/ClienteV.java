@@ -21,10 +21,8 @@ public class ClienteV {
     public static void modCliente(View view, Tienda tienda){
 
         String crfc= view.getInput("Escribe el RFC del cliente que desea modificar");
-        String cnombre= view.getInput("Escribe el nombre nuevo del cliente");
-        String cdireccion= view.getInput("Escribe la direccion nueva del cliente");
-        String cemail= view.getInput("Escribe el email nuevodel cliente");
-        if (ClienteC.modificarCliente(tienda,cnombre,crfc,cdireccion,cemail)){
+
+        if (ClienteC.modificarCliente(tienda,crfc)){
             view.displayMessage("Cliente "+crfc+" modificado");
         }else{
             view.displayMessage("Cliente "+crfc+"no modificado");

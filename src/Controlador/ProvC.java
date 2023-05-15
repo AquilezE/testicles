@@ -4,6 +4,7 @@ package Controlador;
 import Model.Producto;
 import Model.Proveedor;
 import Model.Tienda;
+import Vista.View;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,24 +38,61 @@ public class ProvC {
     }
 
     public static boolean modificarProveedor(Tienda tienda, String nombre, String newTelefono, String newEmail) {
-        Proveedor[] proveedor = tienda.getProveedores();
-        for (int i = 0; i < proveedor.length; i++) {
-            if (proveedor[i] != null && proveedor[i].getNombre().equals(nombre)) {
-                proveedor[i].setEmail(newEmail);
-                proveedor[i].setTelefono(newTelefono);
+        Proveedor[] proveedores = tienda.getProveedores();
+        Proveedor proveedor = null;
+        View view=new View();
 
-                // Serialize the updated Tienda object after modifying the Producto
-                try {
-                    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
-                    out.writeObject(tienda);
-                    out.close();
-                } catch (IOException ex) {
-                    System.out.println("Error: " + ex.getMessage());
-                }
-                return true;
+        for (int i = 0; i < proveedores.length; i++) {
+            if (proveedores[i] != null && proveedores[i].getNombre().equals(nombre)) {
+                proveedor = proveedores[i];
+                break;
             }
         }
-        return false;
+
+        if (proveedor == null) {
+            view.displayMessage("Proveedor no encontrado: " + nombre);
+            return false;
+        }
+
+        int opcion;
+
+        do {
+            view.displayMessage("¿Qué deseas modificar?\n" +
+                    "1. Teléfono\n" +
+                    "2. Email\n" +
+                    "0. Cancelar");
+
+            opcion = view.leerEntero("Opción: ");
+
+            switch (opcion) {
+                case 1:
+                    String nuevoTelefono = view.getInput("Escribe el nuevo teléfono: ");
+                    proveedor.setTelefono(nuevoTelefono);
+                    view.displayMessage("Teléfono modificado: " + nombre);
+                    break;
+                case 2:
+                    String nuevoEmail = view.getInput("Escribe el nuevo email: ");
+                    proveedor.setEmail(nuevoEmail);
+                    view.displayMessage("Email modificado: " + nombre);
+                    break;
+                case 0:
+                    view.displayMessage("Modificación cancelada: " + nombre);
+                    break;
+                default:
+                    view.displayMessage("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 0);
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("tienda.ser"));
+            out.writeObject(tienda);
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+
+        return true;
     }
 
     public static boolean eliminarProv(Tienda tienda, String nombre) {
