@@ -59,7 +59,7 @@ public class View {
     }
 
 
-    public void  cleanConsole(){
+    public static void  cleanConsole(){
         try {
             final String os = System.getProperty("os.name");
 

@@ -79,28 +79,41 @@ public class Main {
 
                     switch (opcion) {
                         case 1:
+                            View.cleanConsole();
                             ProdV.addProd(controller,view);
 
                             break;
                         case 2:
+                            View.cleanConsole();
+
                             ProdV.modProd(view,tienda);
 
                             break;
                         case 3:
+                            View.cleanConsole();
+
                             ProdV.delProd(view,tienda);
 
                             break;
                         case 4:
+                            View.cleanConsole();
+
                             ProdV.verProductos(view,tienda);
 
                             break;
                         case 5:
+                            View.cleanConsole();
 
                             ProdV.buscarProducto(view,tienda);
 
                             break;
 
                         case 6:
+                            View.cleanConsole();
+                            break;
+                        default:
+                            View.cleanConsole();
+                            view.displayMessage("Opcion Invalida");
                             break;
                     }
                     break;
@@ -116,23 +129,38 @@ public class Main {
                     opcion = view.leerEntero(">");
                     switch (opcion) {
                         case 1:
+                            View.cleanConsole();
+
                             ProveedorV.addProveedor(view,controllerP);
                             break;
                         case 2:
+                            View.cleanConsole();
+
                             ProveedorV.modProveedor(view,tienda);
                             break;
 
                         case 3:
+                            View.cleanConsole();
+
                             ProveedorV.eliminarProv(view,tienda);
                             break;
 
                         case 4:
-                                ProveedorV.mostrarProveedores(view,tienda);
+                            View.cleanConsole();
+
+                            ProveedorV.mostrarProveedores(view,tienda);
                             break;
                         case 5:
+                            View.cleanConsole();
+
                             ProveedorV.buscarProovedor(view,tienda);
                             break;
                         case 6:
+                            View.cleanConsole();
+                            break;
+                        default:
+                            View.cleanConsole();
+                            view.displayMessage("Opcion Invalida");
                             break;
                     }
                     break;
@@ -150,40 +178,60 @@ public class Main {
 
                     switch (opcion){
                         case 1:
+                            View.cleanConsole();
+
                             ClienteV.addCliente(view,controllerC);
 
                             break;
                         case 2:
+                            View.cleanConsole();
+
                             ClienteV.modCliente(view,tienda);
 
                             break;
                         case 3:
+                            View.cleanConsole();
+
                             ClienteV.eliminarCliente(view,tienda);
 
                             break;
                         case 4:
+                            View.cleanConsole();
+
                             ClienteV.mostrarClientes(view,tienda);
 
                             break;
                         case 5:
+                            View.cleanConsole();
+
                             ClienteV.buscarCliente(view,tienda);
 
                             break;
                         case 6:
+                            View.cleanConsole();
+
                             ClienteV.clientesyProductos(view,tienda);
                             break;
                         case 7:
+                            View.cleanConsole();
+                            break;
+                        default:
+                            view.displayMessage("Opcion invalida");
                             break;
                     }
                     break;
 
 //GENERAR PEDIDO:
                 case 4:
+                    View.cleanConsole();
+
                     PedidoV.generarPedido(controladorPedido,view);
 
                     break;
       //GENERAR FACTURA
                 case 5:
+                    View.cleanConsole();
+
                     FacturaV.generarPedido(controllerF,view);
 
                     break;
@@ -196,11 +244,12 @@ public class Main {
                     int option=view.leerEntero(">:");
 
                     switch (option) {
-                        case 1: FacturaC.mostrarFacturasTienda(view, tienda); break;
-                        case 2: ControladorPedido.mostrarPedidosTienda(view, tienda); break;
-                        case 3: FacturaC.mostrarFacturasCliente(view, tienda); break;
-                        case 4: ControladorPedido.mostrarPedidosProveedor(view, tienda); break;
-                        case 5: break;
+                        case 1:  View.cleanConsole(); FacturaC.mostrarFacturasTienda(view, tienda); break;
+                        case 2: View.cleanConsole(); ControladorPedido.mostrarPedidosTienda(view, tienda); break;
+                        case 3: View.cleanConsole(); FacturaC.mostrarFacturasCliente(view, tienda); break;
+                        case 4: View.cleanConsole(); ControladorPedido.mostrarPedidosProveedor(view, tienda); break;
+                        case 5: View.cleanConsole(); break;
+                        default: View.cleanConsole(); view.displayMessage("Opcion Invalida");
                     }
                     break;
                 case 7:
@@ -212,17 +261,28 @@ public class Main {
 
                     switch (opcion){
                         case 1:
+                            View.cleanConsole();
                             TiendaC.bubbleSortPrecio(tienda);
                             ProdV.verProductos(view,tienda);
                             break;
                         case 2:
+                            View.cleanConsole();
                             TiendaC.bubbleSortDescuento(tienda);
                             ProdV.verProductos(view, tienda);
                             break;
                         case 3:
+                            View.cleanConsole();
                             TiendaC.bubbleSortExistencias(tienda);
                             ProdV.verProductos(view,tienda);
+                            break;
+                        default:
+                            View.cleanConsole();
+                            view.displayMessage("Opcion Invalida");
                     }
+                    break;
+                default:
+                    View.cleanConsole();
+                    view.displayMessage("Opcion invalida");
                     break;
                     }
                 }
